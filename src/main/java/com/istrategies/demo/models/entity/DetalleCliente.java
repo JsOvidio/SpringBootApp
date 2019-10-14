@@ -9,27 +9,26 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
-
 @Entity
 @Table(name = "DetalleCliente")
-public class DetalleCliente  implements Serializable {
-	
+public class DetalleCliente implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Long id;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
 	@NotEmpty
 	private String direccion;
 	@NotEmpty
 	private String nit;
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -48,7 +47,5 @@ public class DetalleCliente  implements Serializable {
 	public void setNit(String nit) {
 		this.nit = nit;
 	}
-	
-	
 
 }

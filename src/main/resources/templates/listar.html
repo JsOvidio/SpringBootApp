@@ -5,43 +5,115 @@
 
 <title th:text="${titulo}">Insert title here</title>
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 </head>
 <body>
 
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target=".navbar-collapse">
+				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+		</div>
+		<div class="navbar-collapse collapse">
+
+			<ul class="nav navbar-nav navbar-center">
+				<li><a href="listar">Inicio</a></li>
+				<li><a th:href="@{/clientes}">Proceso Web Service</a></li>
+				<li><a href="#">Contactanos</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+			</ul>
+		</div>
+	</nav>
 
 
 	<div class="container">
-	<h1 th:text="${titulo}"
-	class="text-secondary border border-success border-top-0 border-left-0 border-right-0 " ></h1>
-<a class="btn btn-primary btn-xs"  th:href="@{/form}">Crear Cliente</a>
-	<table  class="table table-striped">
-		<thead>
-			<tr>
+		<h1 th:text="${titulo}"
+			class="text-secondary border border-success border-top-0 border-left-0 border-right-0 "></h1>
+		<a class="btn btn-primary btn-xs" th:href="@{/form}">Crear Cliente</a>
+		<table class="table table-striped">
+			<thead>
+				<tr>
 					<th>ID</th>
 					<th>Nombre</th>
-				<th>Apellido</th>
-				<th>Email</th>
-				<th>Accion</th>
-				<th>Editar</th>
-				<th>Eliminar</th>
-			</tr>
+					<th>Apellido</th>
+					<th>Email</th>
+					<th>Accion</th>
+					<th>Editar</th>
+					<th>Eliminar</th>
+				</tr>
 
-		</thead>
-		<tbody>
-			<tr th:each="cliente:  ${clientes}">
-				<td th:text="${cliente.id}"></td>
-				<td th:text="${cliente.nombre}"></td>
-				<td th:text="${cliente.apellido}"></td>
-				<td th:text="${cliente.email}"></td>
-				<td > <a  class="btn btn-primary btn-xs"  th:href="@{/formdetallecliente/} ">agregar detalle  </a> </td>
-<td > <a  class="btn btn-primary btn-xs"  th:href="@{/form/} + ${cliente.id}">Editar   </a> </td>
-<td > <a  class="btn btn-danger btn-xs"  th:href="@{/eliminar/} + ${cliente.id}" th:text="'Eliminar'" Onclick="return confirm('Estas seguro que quieres eliminar?');">Eliminar   </a> </td>
-			</tr>
-		</tbody>
+			</thead>
+			<tbody>
+				<tr th:each="cliente:  ${clientes}">
+					<td th:text="${cliente.id}"></td>
+					<td th:text="${cliente.nombre}"></td>
+					<td th:text="${cliente.apellido}"></td>
+					<td th:text="${cliente.email}"></td>
+					<td><a class="btn btn-primary btn-xs" th:href="@{#}">Agregar detalle</a></td>
+					<td><a class="btn btn-primary btn-xs"
+						th:href="@{/form/} + ${cliente.id}">Editar </a></td>
+					<td><a class="btn btn-danger btn-xs"
+						th:href="@{/eliminar/} + ${cliente.id}" th:text="'Eliminar'"
+						Onclick="return confirm('Estas seguro que quieres eliminar?');">Eliminar
+					</a></td>
+				</tr>
+			</tbody>
 
-	</table>
+		</table>
+		<!-- Modal 
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+ Detalle de cliente
+</button>
+-->
+	</div>
+	
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Direccion</th>
+					<th>NIT</th>
+							<th>Cliente ID</th>
+				</tr>
 
+			</thead>
+			<tbody>
+				<tr th:each="detalleclientes:  ${detalleclientes}">
+				</tr>
+			</tbody>
+
+		</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
+	
+		 <script>
+		 $('#myModal').on('shown.bs.modal', function () {
+			  $('#myInput').focus()
+			})
+		 </script>
+	
+	 <script src="http://code.jquery.com/jquery-latest.js"></script>
+<!-- Latest compiled and minified JavaScript  --> 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ 
 </body>
 </html>
