@@ -1,5 +1,6 @@
 package com.istrategies.demo.controllers;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -10,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,7 +32,7 @@ public class ClienteController {
 
 	@Autowired
 	private IClienteDao clienteDao;
-	
+
 	@Autowired
 	private IDetalleClienteDao detalleclienteDao;
 
@@ -40,9 +40,11 @@ public class ClienteController {
 	public String listar(Model model) {
 		model.addAttribute("titulo", "Listado de Cliente");
 		model.addAttribute("clientes", clienteDao.findAll());
-		Integer idd= 1;
-		model.addAttribute("detalleclientes", detalleclienteDao.findById(idd));
-		
+		Integer idd = 1;
+		// model.addAttribute("detalleclientes", detalleclienteDao.findAllByIdC(idd));
+		// Optional<DetalleCliente> list = detalleclienteDao.findById(idd);
+		model.addAttribute("detalleclientes", detalleclienteDao.findAll());
+
 		return "listar";
 
 	}
@@ -105,12 +107,13 @@ public class ClienteController {
 
 	}
 
-	@RequestMapping(value = "/ver/{id}")
+	@GetMapping(value = "/ver/{id}")
 	public String ver(@PathVariable(value = "id") Integer id, Map<String, Object> model, RedirectAttributes flash) {
-		Optional<Cliente> cliente = null;
+		Cliente clientes = null;
 		if (id > 0) {
-			cliente = clienteDao.findById(id);
-			if (cliente == null) {
+
+			clientes = clienteDao.findById(id).orElse(null);
+			if (clientes == null) {
 				flash.addFlashAttribute("error", "Error el id no existe");
 				return "redirect:/listar";
 			}
@@ -120,9 +123,9 @@ public class ClienteController {
 			return "redirect:/listar";
 		}
 
-		model.put("cliente", cliente);
-		System.out.println("clientecontroller" + cliente);
-		model.put("titulo", "formulario d");
+		model.put("clientes", clientes);
+		System.out.println("clientecontroller" + clientes);
+		model.put("titulo", "Listado detalles de cliente");
 
 		return "ver";
 

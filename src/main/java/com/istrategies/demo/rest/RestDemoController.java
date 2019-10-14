@@ -20,7 +20,7 @@ import com.istrategies.demo.models.dao.IClienteDao;
 import com.istrategies.demo.models.entity.Cliente;
 
 @RestController
-@RequestMapping("/clientes")
+@RequestMapping("/Cliente")
 @SessionAttributes("clientes")
 public class RestDemoController {
 	

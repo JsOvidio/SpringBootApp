@@ -3,9 +3,11 @@ package com.istrategies.demo.models.entity;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -23,6 +25,9 @@ public class DetalleCliente implements Serializable {
 	private String direccion;
 	@NotEmpty
 	private String nit;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	private Cliente cliente;
 
 	public int getId() {
 		return id;
